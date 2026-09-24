@@ -1,23 +1,25 @@
-import { Route, Routes } from "react-router-dom";
+// src/App.jsx
+import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "./features/auth/ProtectedRoute.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
-const Placeholder = ({ name }) => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50">
-    <div className="p-8 bg-white rounded-xl shadow">
-      <h1 className="text-3xl font-bold text-gray-900 text-center">{name}</h1>
-      <p className="text-gray-600 mt-2">Coming in the next milestone.</p>
-    </div>
-  </div>
-);
-
-function App() {
+export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Placeholder name="Dashboard" />} />
-      <Route path="/login" element={<Placeholder name="Login" />} />
-      <Route path="/register" element={<Placeholder name="Register" />} />
-      <Route path="*" element={<Placeholder name="404 Not Found" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
-
-export default App;
